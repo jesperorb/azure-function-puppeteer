@@ -10,8 +10,10 @@
       ]
     },
     {
-      "name": "$return",
-      "type": "http",
+      "name": "outputBlob",
+      "type": "blob",
+      "path": "profiles/blobby",
+      "connection": "AzureWebJobsStorage",
       "direction": "out"
     }
   ]

@@ -1,8 +1,10 @@
 const puppeteer = require('puppeteer');
 
 module.exports = async (context, req) => {
+
   const path = __dirname + '/trace.json';
   const { query: { url } } = req;
+
   const browser = await puppeteer.launch({
     args: [
       '--no-sandbox',
@@ -18,9 +20,8 @@ module.exports = async (context, req) => {
   await page.tracing.stop();
   // Contains loading times (DOMContentLoaded etc)
   const performanceTiming = (await page.evaluate(() => JSON.stringify(window.performance.timing)))
-  await browser.close();
-  const result = require(path);
-  return {
-    body: result
-  }
+  return browser.close().then(() => {
+    const result = require(path);
+    context.bindings.outputBlob = JSON.stringify(result);
+  });
 };

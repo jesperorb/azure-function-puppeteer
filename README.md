@@ -9,7 +9,7 @@ docker build -t auto-audit:latest .
 ## Run
 
 ```
-docker run --rm -it -p 80:80/tcp auto-audit:latest
+docker run --rm -it -p 80:80/tcp -e AzureWebJobsStorage="your connection string" auto-audit:latest
 ```
 
 Get trace like this:
